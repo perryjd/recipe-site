@@ -20,12 +20,14 @@ cur = db.cursor()
 cur.execute("SELECT * FROM recipes")
 print("<table><tr><th>Recipe Name</th><th>Recipe URL</th></tr>")
 for row in cur.fetchall():
+	#i think adding a link goes here???
 	print ("<tr><td>"+str(row[0])+"</td><td>"+str(row[1])+"</td></tr>")
 print("</table>")
 if ("num" in arguments.keys()):
 	limit = int(arguments["num"].value)
 else:
 	limit = 0
+
 
 i = 0
 while (i < limit):
