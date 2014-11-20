@@ -18,7 +18,8 @@ db = MySQLdb.connect(host='localhost', user='root', passwd='root', db='recipe_si
 cur = db.cursor()
 cur.execute("SELECT * FROM recipes")
 print('<table><tr><th>Recipe Name</th><th>Recipe URL</th></tr>')
-for row in cur.fetchall():
+rows = cur.fetchall()
+for row in rows:
 	print ('<tr><td>'+str(row[1])+'</td><td><a href='+str(row[2])+' target="_blank">link</a></td></tr>')
 print("</table>")
 if ("num" in arguments.keys()):
@@ -28,7 +29,7 @@ else:
 #this is for the random recipe generator
 recipeTotal=cur.rowcount
 randIndex = random.randrange(1, recipeTotal+1)
-for row in cur.fetchall():
+for row in rows:
 	if (row[0] == randIndex):
 		print("<p><a href='"+str(row[2])+"' target='_blank'>Random recipe!</a></p>")
 
