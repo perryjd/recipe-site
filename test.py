@@ -10,34 +10,45 @@ print("Content-Type: text/html;charset=utf-8\n")
 print('''<html>
 <head>
 <title>TEST PAGE</title>
+<link rel="stylesheet" type="text/css" href="test.css">
+<link rel="stylesheet" href="dist/css/bootstrap.min.css">
+<script src="jquery-2.1.1.min.js"></script>
 </head>
 <body>
-<p>This is the recipe site!</p>''')
+<div class="container-fluid" id="background">
+<div class="row">
+<div class="col-md-2"></div>
+<div class="col-md-8" id="ribbon">
+<div class="col-md-6" id="content">
+<h1>This is the recipe site!</h1>''')
+#grabbing table, making master list. TAKE THIS OUT once done
 arguments = cgi.FieldStorage()
 db = MySQLdb.connect(host='localhost', user='root', passwd='root', db='recipe_site')
 cur = db.cursor()
 cur.execute("SELECT * FROM recipes")
-print('<table><tr><th>Recipe Name</th><th>Recipe URL</th></tr>')
+print('<table><tr><th>Master List</th></tr>')
 rows = cur.fetchall()
 for row in rows:
-	print ('<tr><td>'+str(row[1])+'</td><td><a href='+str(row[2])+' target="_blank">link</a></td></tr>')
+	print ('<tr><td><a href="'+str(row[2])+'" target="_blank">'+str(row[1])+'</a></td></tr>')
 print("</table>")
-if ("num" in arguments.keys()):
-	limit = int(arguments["num"].value)
-else:
-	limit = 0
 #this is for the random recipe generator
 recipeTotal=cur.rowcount
 randIndex = random.randrange(1, recipeTotal+1)
 for row in rows:
 	if (row[0] == randIndex):
-		print("<p><a href='"+str(row[2])+"' target='_blank'>Random recipe!</a></p>")
-
-i = 0
-while (i < limit):
-	print ('''<p>This is a test!</p>''')
-	i += 1
-
+		print("<a href='"+str(row[2])+"' target='_blank' class='Random'><div id='randButton'>Random recipe!</div></a>")
+if ("num" in arguments.keys()):
+	query = str(arguments["num"].value)
+#now adding search bar
+print('</div>')
+print('<div id="searchBox" class="col-md-2">')
+print('''<form action="test.py">
+	<input type="text" name="search" placeholder="search by ingredient">
+	<input type="submit" value="go">
+	</form>''')
 print('''
+<div class="col-md-2"></div>
+</div>
+</div>
 </body>
 </html>''')

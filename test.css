@@ -1,0 +1,55 @@
+#randButton {
+	border-radius: 20px;
+	background-color: #ffffff;
+	width: 225px;
+	height: 50px;
+	text-align: center;
+	border: 5px solid #ffd6ad;
+	text-decoration: none;
+}
+.Random {
+	text-decoration: none;
+	font-weight: bold;
+	color: black;
+	font-family: helvetica;
+	width: 225px;
+	height: 50px;
+	font-size: 25px;
+}
+#background {
+	background-color: #FFFFFF;
+	height: 100%;
+}
+#ribbon {
+	background-color: #85A3C2;
+	height: 100%;
+}
+#randButton:hover {
+	background-color: #ffd6ad;
+	text-decoration: none;
+	border: 5px solid #ffd6ad;
+	color: black;
+	font-size: 24px;
+
+}
+.random:hover {
+	text-decoration: none;
+}
+.random:visited {
+	text-decoration: none;
+}
+.random:active {
+	text-decoration: none;
+}
+td a {
+	color: black;
+}
+td a:hover {
+	color: black;
+	text-decoration: none;
+}
+#searchBox {
+	margin-top: 20px;
+	float: right;
+	text-align: right;
+}
