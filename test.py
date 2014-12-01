@@ -37,15 +37,14 @@ randIndex = random.randrange(1, recipeTotal+1)
 for row in rows:
 	if (row[0] == randIndex):
 		print("<a href='"+str(row[2])+"' target='_blank' class='Random'><div id='randButton'>Random recipe!</div></a>")
-if ("search" in arguments.keys()):
+if ("search" in arguments.keys() != 0):
 	query = str(arguments["search"].value)
-
-cur.execute("SELECT * FROM recipes WHERE name LIKE %s", ("%"+query+"%"))
-rows = cur.fetchall()
-print('<table><tr><th>Search Results</th></tr>')
-for row in rows:
-	print ('<tr><td><a href="'+str(row[2])+'" target="_blank">'+str(row[1])+'</a></td></tr>')
-print("</table>")
+	cur.execute("SELECT * FROM recipes WHERE name LIKE %s", ("%"+query+"%"))
+	rows = cur.fetchall()
+	print('<table><tr><th>Search Results</th></tr>')
+	for row in rows:
+		print ('<tr><td><a href="'+str(row[2])+'" target="_blank">'+str(row[1])+'</a></td></tr>')
+	print("</table>")
 
 #now adding search bar
 print('</div>')
