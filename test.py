@@ -53,7 +53,21 @@ if ("search" in arguments.keys() != 0):
 	print('<table><tr><th>Search Results</th></tr>')
 	for row in rows:
 		print ('<tr><td><a href="'+str(row[2])+'" target="_blank">'+str(row[1])+'</a></td></tr>')
-	print("</table>")
+	print("</table></div>")
+#now adding add-a-recipe feature
+print('<div id="addRecipe">')
+print('<h3>Add your recipe to the database!</h2>')
+print('<form action="test.py">')
+print('<p><input type="text" name="newName" placeholder="your recipe\'s name"></p>')
+print('<p><input type "text" name="newUrl" placeholder="your recipe\'s URL"></p>')
+print('<p><input type="submit" value="submit!"></p>')
+print('</form>')
+if (("newName" in arguments.keys() != 0) and ("newUrl" in arguments.keys() != 0)):
+	newName = str(arguments["newName"].value)
+	newUrl = str(arguments["newUrl"].value)
+	cur.execute("INSERT INTO recipes (name, url) VALUES (%s,%s);", ("'"+newName+"'", "'"+newUrl+"'"))
+
+print('</div>')
 print('''
 <div class="col-md-2"></div>
 </div>
