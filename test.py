@@ -65,7 +65,8 @@ print('</form>')
 if (("newName" in arguments.keys() != 0) and ("newUrl" in arguments.keys() != 0)):
 	newName = str(arguments["newName"].value)
 	newUrl = str(arguments["newUrl"].value)
-	cur.execute("INSERT INTO recipes (name, url) VALUES (%s,%s);", ("'"+newName+"'", "'"+newUrl+"'"))
+	cur.execute("INSERT INTO recipes (`ID`, `name`, `url`) VALUES (NULL, %s,%s)", (newName, newUrl))
+	db.commit()
 
 print('</div>')
 print('''
