@@ -29,14 +29,16 @@ cur.execute("SELECT * FROM recipes")
 print('<table><tr><th>Master List</th></tr>')
 rows = cur.fetchall()
 for row in rows:
-	print ('<tr><td><a href="'+str(row[2])+'" target="_blank">'+str(row[1])+'</a></td></tr>')
+	print ('<tr><td><a href="'+str(row[2])+'" target="_blank">'+str(row[1])+'''</a></td><td>
+		<form action="test.py"><input type="hidden" name="toDelete" value="'''+str(row[2])+
+		'"><input type="submit" value="delete"></form></td></tr>')
 print("</table>")
-#this is for the random recipe generator
 recipeTotal=cur.rowcount
 randIndex = random.randrange(1, recipeTotal+1)
 for row in rows:
 	if (row[0] == randIndex):
 		print("<a href='"+str(row[2])+"' target='_blank' class='Random'><div id='randButton'>Random recipe!</div></a>")
+#add recipe feature
 if (("newName" in arguments.keys() != 0) and ("newUrl" in arguments.keys() != 0)):
 	newName = str(arguments["newName"].value)
 	newUrl = str(arguments["newUrl"].value)
@@ -56,17 +58,20 @@ elif (("newName" in arguments.keys()) != ("newUrl" in arguments.keys())):
 	print("""<script>
 		alert("Oops! Please enter both a name and a URL.");
 		</script>""")
+#delete recipe feature
+if ("toDelete" in arguments.keys() != 0):
+	hitUrl = str(arguments["toDelete"].value)
+	cur.execute("DELETE FROM recipes WHERE url=%s", hitUrl)
+	db.commit()
+#search feature
 if ("search" in arguments.keys() != 0):
 	query = str(arguments["search"].value)
 	cur.execute("SELECT * FROM recipes WHERE name LIKE %s", ("%"+query+"%"))
-	rows = cur.fetchall()
+	searchRows = cur.fetchall()
 	print('<table><tr><th>Search Results</th></tr>')
-	for row in rows:
+	for row in searchRows:
 		print ('<tr><td><a href="'+str(row[2])+'" target="_blank">'+str(row[1])+'</a></td></tr>')
 	print("</table></div>")
-
-
-#now adding search bar
 print('</div>')
 print('<div id="searchBox" class="col-md-2">')
 print('''<form action="test.py">
